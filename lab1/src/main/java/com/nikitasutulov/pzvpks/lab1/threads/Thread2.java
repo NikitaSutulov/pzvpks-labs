@@ -1,0 +1,34 @@
+package com.nikitasutulov.pzvpks.lab1.threads;
+
+import com.nikitasutulov.pzvpks.lab1.data.Data;
+
+public class Thread2 extends Thread {
+    private final int n;
+    private final int inputOption;
+
+    private int[][] MF, MG, MH, ML;
+
+    public Thread2(int n, int inputOption) {
+        super();
+        this.n = n;
+        this.inputOption = inputOption;
+    }
+    @Override
+    public void run() {
+        System.out.println("Потік T2 почав виконання");
+
+        MG = Data.getMatrix("MG", n, inputOption, 2);
+        MH = Data.getMatrix("MH", n, inputOption, 2);
+        ML = Data.getMatrix("ML", n, inputOption, 2);
+
+        MF = Data.F2(MG, MH, ML);
+
+        if (n < 1000) {
+            Data.printMatrix(MF, "MF");
+        } else {
+            Data.writeMatrixToFile(MF, "MF");
+        }
+
+        System.out.println("Потік T2 завершив виконання");
+    }
+}
