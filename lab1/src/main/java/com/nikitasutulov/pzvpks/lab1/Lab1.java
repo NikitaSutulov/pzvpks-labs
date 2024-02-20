@@ -5,13 +5,15 @@
  * F3: 3.28: s = MAX(S * MO) + MIN(MT * MS + MP)
  * Сутулов Нікіта Олегович
  * Група ІМ-12
- * Дата 18.02.2024
+ * Дата 20.02.2024
  */
 
 package com.nikitasutulov.pzvpks.lab1;
 
 import com.nikitasutulov.pzvpks.lab1.data.Data;
 import com.nikitasutulov.pzvpks.lab1.threads.*;
+
+import java.util.Date;
 
 public class Lab1 {
 
@@ -27,6 +29,9 @@ public class Lab1 {
         if (n > 1000) {
             inputOption = Data.getInputOptionFromConsole();
         }
+
+        // час початку виконання потоків
+        double startTime = (double) System.nanoTime() / 1000000000F;
 
         // створення потоків із задаванням отриманих налаштувань у конструктор
         Thread1 t1 = new Thread1(n, inputOption);
@@ -50,6 +55,12 @@ public class Lab1 {
             t3.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+        }
+
+        // якщо n > 1000, то вивести час виконання програми
+        if (n > 1000) {
+            double endTime = (double) System.nanoTime() / 1000000000F;
+            System.out.println("Головний потік: час виконання програми склав " + String.format("%.2f с", endTime - startTime));
         }
 
         // виведення повідомлення про завершення виконання програми
