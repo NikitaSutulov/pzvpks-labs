@@ -15,20 +15,25 @@ public class Thread2 extends Thread {
     }
     @Override
     public void run() {
+        // повідомлення про початок виконання потоку T2
         System.out.println("Потік T2 почав виконання");
 
+        // отримання вхідних даних
         MG = Data.getMatrix("MG", n, inputOption, 2);
         MH = Data.getMatrix("MH", n, inputOption, 2);
         ML = Data.getMatrix("ML", n, inputOption, 2);
 
+        // обчислення функції F2
         MF = Data.F2(MG, MH, ML);
 
-        if (n < 1000) {
+        // виведення результату
+        if (n <= 1000) {
             Data.printMatrix(MF, "MF");
         } else {
             Data.writeMatrixToFile(MF, "MF");
         }
 
+        // повідомлення про завершення виконання потоку T2
         System.out.println("Потік T2 завершив виконання");
     }
 }

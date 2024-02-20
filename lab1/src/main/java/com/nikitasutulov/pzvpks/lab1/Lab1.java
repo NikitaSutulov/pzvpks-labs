@@ -16,26 +16,34 @@ import com.nikitasutulov.pzvpks.lab1.threads.*;
 public class Lab1 {
 
     public static void main(String[] args) {
+        // виведення повідомлення про початок виконання програми
         System.out.println("Головний потік: Виконання програми розпочато.");
+
+        // отримання розмірності n
         int n = Data.getNFromConsole();
         int inputOption = 0;
 
-        if (n >= 1000) {
+        // якщо n > 1000, то отримання варіанту надавання вхідних даних
+        if (n > 1000) {
             inputOption = Data.getInputOptionFromConsole();
         }
 
+        // створення потоків із задаванням отриманих налаштувань у конструктор
         Thread1 t1 = new Thread1(n, inputOption);
         Thread2 t2 = new Thread2(n, inputOption);
         Thread3 t3 = new Thread3(n, inputOption);
 
+        // встановлення пріоритетів для потоків
         t1.setPriority(Thread.MIN_PRIORITY);
         t2.setPriority(Thread.MAX_PRIORITY);
         t3.setPriority(Thread.NORM_PRIORITY);
 
+        // запуск потоків
         t1.start();
         t2.start();
         t3.start();
 
+        // очікування завершення виконання потоків
         try {
             t1.join();
             t2.join();
@@ -43,6 +51,8 @@ public class Lab1 {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        // виведення повідомлення про завершення виконання програми
         System.out.println("Головний потік: Виконання програми завершено.");
 
     }

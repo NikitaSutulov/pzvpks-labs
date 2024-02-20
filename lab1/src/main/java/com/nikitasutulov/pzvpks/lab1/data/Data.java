@@ -6,18 +6,20 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Data {
+    // scanner використовується тільки у головному потоці для отримання n та варіанту надання вхідних даних
+    // потоками T1, T2, T3 не використовується
     private static final Scanner scanner = new Scanner(System.in);
 
     public static int[] F1(int[] A, int[] B, int[] C, int[] D, int[][] MA, int[][] MD) {
-        return addTwoVectors(
+        return addTwoVectors( // A + B + C + D * (MA * MD)
                 A,
-                addTwoVectors(
+                addTwoVectors( // B + C + D * (MA * MD)
                         B,
-                        addTwoVectors(
+                        addTwoVectors( // C + D * (MA * MD)
                                 C,
-                                multiplyVectorAndMatrix(
+                                multiplyVectorAndMatrix( // D * (MA * MD)
                                         D,
-                                        multiplyTwoMatrices(MA, MD)
+                                        multiplyTwoMatrices(MA, MD) // MA * MD
                                 )
                         )
                 )
@@ -25,14 +27,14 @@ public class Data {
     }
 
     public static int[][] F2(int[][] MG, int[][] MH, int[][] ML) {
-        return multiplyTwoMatrices(MG, multiplyTwoMatrices(MH, ML));
+        return multiplyTwoMatrices(MG, multiplyTwoMatrices(MH, ML)); // MG * (MH * ML)
     }
 
     public static int F3(int[] S, int[][] MO, int[][] MT, int[][] MS, int[][] MP) {
-        return getMaxElementOfVector(multiplyVectorAndMatrix(S, MO)) +
-                getMinElementOfMatrix(
-                        addTwoMatrices(
-                                multiplyTwoMatrices(MT, MS),
+        return getMaxElementOfVector(multiplyVectorAndMatrix(S, MO)) + // MAX(S * MO)
+                getMinElementOfMatrix( // MIN(MT * MS + MP)
+                        addTwoMatrices( // MT * MS + MP
+                                multiplyTwoMatrices(MT, MS), // MT * MS
                                 MP
                         )
                 );
@@ -126,7 +128,7 @@ public class Data {
     }
 
     public static int[] getArray(String arrayName, int n, int inputOption, int defaultValue) {
-        if (n < 1000) {
+        if (n <= 1000) { // для n <= 1000 отримати дані з консолі
             return getArrayFromConsole(arrayName, n);
         }
         if (inputOption == 1) { // зчитати масив з файла
@@ -140,7 +142,7 @@ public class Data {
     }
 
     public static int[][] getMatrix(String matrixName, int n, int inputOption, int defaultValue) {
-        if (n < 1000) {
+        if (n <= 1000) { // для n <= 1000 отримати дані з консолі
             return getMatrixFromConsole(matrixName, n);
         }
         if (inputOption == 1) { // зчитати матрицю з файла
@@ -221,7 +223,8 @@ public class Data {
     }
 
     private static int[] getArrayFromConsole(String arrayName, int n) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             int[] result = new int[n];
             for (int i = 0; i < n; i++) {
                 System.out.println("Enter " + arrayName + "[" + i + "] element:");

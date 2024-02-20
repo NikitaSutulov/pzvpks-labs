@@ -17,22 +17,27 @@ public class Thread3 extends Thread {
     }
     @Override
     public void run() {
+        // повідомлення про початок виконання потоку T3
         System.out.println("Потік T3 почав виконання");
 
+        // отримання вхідних даних
         S = Data.getArray("S", n, inputOption, 3);
         MO = Data.getMatrix("MO", n, inputOption, 3);
         MT = Data.getMatrix("MT", n, inputOption, 3);
         MS = Data.getMatrix("MS", n, inputOption, 3);
         MP = Data.getMatrix("MP", n, inputOption, 3);
 
+        // обчислення функції F3
         s = Data.F3(S, MO, MT, MS, MP);
 
-        if (n < 1000) {
+        // виведення результату
+        if (n <= 1000) {
             Data.printNumber(s, "s");
         } else {
             Data.writeNumberToFile(s, "s");
         }
 
+        // повідомлення про завершення виконання потоку T3
         System.out.println("Потік T3 завершив виконання");
     }
 }

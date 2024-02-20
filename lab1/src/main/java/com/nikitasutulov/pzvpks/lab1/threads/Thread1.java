@@ -16,8 +16,10 @@ public class Thread1 extends Thread {
     }
     @Override
     public void run() {
+        // повідомлення про початок виконання потоку T1
         System.out.println("Потік T1 почав виконання");
 
+        // отримання вхідних даних
         A = Data.getArray("A", n, inputOption, 1);
         B = Data.getArray("B", n, inputOption, 1);
         C = Data.getArray("C", n, inputOption, 1);
@@ -26,14 +28,17 @@ public class Thread1 extends Thread {
         MA = Data.getMatrix("MA", n, inputOption, 1);
         MD = Data.getMatrix("MD", n, inputOption, 1);
 
+        // обчислення функції F1
         E = Data.F1(A, B, C, D, MA, MD);
 
-        if (n < 1000) {
+        // виведення результату
+        if (n <= 1000) {
             Data.printArray(E, "E");
         } else {
             Data.writeArrayToFile(E, "E");
         }
 
+        // повідомлення про завершення виконання потоку T1
         System.out.println("Потік T1 завершив виконання");
     }
 }
