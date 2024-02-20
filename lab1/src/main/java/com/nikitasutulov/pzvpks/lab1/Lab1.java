@@ -13,8 +13,6 @@ package com.nikitasutulov.pzvpks.lab1;
 import com.nikitasutulov.pzvpks.lab1.data.Data;
 import com.nikitasutulov.pzvpks.lab1.threads.*;
 
-import java.util.Date;
-
 public class Lab1 {
 
     public static void main(String[] args) {
