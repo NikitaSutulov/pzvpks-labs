@@ -56,11 +56,11 @@ public class T2 extends Thread {
             // Обчислення3 - обчислення H рядків матриці MU із записом результату у відповідне поле об'єкта data
             data.doThirdCalculation(a2, d2, from, to);
 
-            // Сигнал потоку T1 про завершення обчилення 3 за допомогою семафора S5
-            data.S5.release();
-
             // Повідомлення про завершення виконання потоку T2
             System.out.println("Потік T2 завершив виконання");
+
+            // Сигнал потоку T1 про завершення обчилення 3 за допомогою семафора S5
+            data.S5.release();
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

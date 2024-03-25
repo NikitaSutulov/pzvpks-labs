@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Data {
-    public int N = 32;
+    public int N = 24;
     public int P = 4;
     public int H = N / P;
     public int[] Z = new int[N];
@@ -111,17 +111,17 @@ public class Data {
     }
 
     public void doThirdCalculation(int ai, int di, int from, int to) {
-        insertPartOfMatrixRowsIntoMatrix(                                       // MUн = (MDн * MC) * di + ai * MRн
-                addTwoMatrices(                                                 // (MDн * MC) * di + ai * MRн
-                        multiplyMatrixByScalar(                                 // (MDн * MC) * di
-                                multiplyTwoMatrices(                            // (MDн * MC)
-                                        getPartOfMatrixRows(MD, from, to),      // MDн
+        insertPartOfMatrixRowsIntoMatrix( // MUн = (MDн * MC) * di + ai * MRн
+                addTwoMatrices( // (MDн * MC) * di + ai * MRн
+                        multiplyMatrixByScalar( // (MDн * MC) * di
+                                multiplyTwoMatrices( // (MDн * MC)
+                                        getPartOfMatrixRows(MD, from, to), // MDн
                                         MC
                                 ),
                                 di
                         ),
-                        multiplyMatrixByScalar(                                 // ai * MRн
-                                getPartOfMatrixRows(MR, from, to),              // MRн
+                        multiplyMatrixByScalar( // ai * MRн
+                                getPartOfMatrixRows(MR, from, to), // MRн
                                 ai
                         )
                 ),
