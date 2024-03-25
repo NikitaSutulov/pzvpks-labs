@@ -29,6 +29,7 @@ public class T4 extends Thread {
             for (int i = 0; i < data.N; i++) {
                 data.Z[i] = 1;
             }
+            data.Z[data.Z.length / 2] = 100; // Встановлення значення 100 для одного елемента, щоб перевірити правильність підрахунку максимального елемента Z
 
             // Введення MD
             for (int i = 0; i < data.N; i++) {
@@ -47,7 +48,7 @@ public class T4 extends Thread {
 
             // Обчислення2
             // КД1
-            // Захищений перезапис спільного ресурсу a із використанням атомарної змінної
+            // Захищений запис нового значення спільного ресурсу a із використанням атомарної змінної
             data.a.updateAndGet(a -> Math.max(a, a4));
 
             // Сигнал потокам T1, T2, T3 за допомогою семафора S4 про завершення обчислення 1 потоком T3
@@ -59,12 +60,16 @@ public class T4 extends Thread {
             data.S3.acquire();
 
             // Копіювання a4 = a
-            // КД2, synchronized-метод CS1()
-            a4 = data.CS1();
+            // КД2, ReentrantLock CS1
+            data.CS1.lock();
+            a4 = data.a.get();
+            data.CS1.unlock();
 
             // Копіювання d4 = d
-            // КД3, synchronized-метод CS2()
-            d4 = data.CS2();
+            // КД3, synchronized-блок із синхронізацією на об'єкті CS2
+            synchronized (data.CS2) {
+                d4 = data.d;
+            }
 
             // Обчислення3 - обчислення H рядків матриці MU із записом результату у відповідне поле об'єкта data
             data.doThirdCalculation(a4, d4, from, to);

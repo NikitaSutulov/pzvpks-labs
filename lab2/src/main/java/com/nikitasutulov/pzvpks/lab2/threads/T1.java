@@ -41,7 +41,7 @@ public class T1 extends Thread {
 
             // Обчислення2
             // КД1
-            // Захищений перезапис спільного ресурсу a із використанням атомарної змінної
+            // Захищений запис нового значення спільного ресурсу a із використанням атомарної змінної
             data.a.updateAndGet(a -> Math.max(a, a1));
 
             // Сигнал потокам T2, T3, T4 за допомогою семафора S1 про завершення обчислення 1 потоком T1
@@ -53,12 +53,16 @@ public class T1 extends Thread {
             data.S4.acquire();
 
             // Копіювання a1 = a
-            // КД2, synchronized-метод CS1()
-            a1 = data.CS1();
+            // КД2, ReentrantLock CS1
+            data.CS1.lock();
+            a1 = data.a.get();
+            data.CS1.unlock();
 
             // Копіювання d1 = d
-            // КД3, synchronized-метод CS2()
-            d1 = data.CS2();
+            // КД3, synchronized-блок із синхронізацією на об'єкті CS2
+            synchronized (data.CS2) {
+                d1 = data.d;
+            }
 
             // Обчислення3 - обчислення H рядків матриці MU із записом результату у відповідне поле об'єкта data
             data.doThirdCalculation(a1, d1, from, to);

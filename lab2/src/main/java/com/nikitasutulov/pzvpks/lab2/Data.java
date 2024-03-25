@@ -3,9 +3,10 @@ package com.nikitasutulov.pzvpks.lab2;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Data {
-    public int N = 24;
+    public int N = 16;
     public int P = 4;
     public int H = N / P;
     public int[] Z = new int[N];
@@ -102,13 +103,11 @@ public class Data {
         }
     }
 
-    public synchronized int CS1() {
-        return a.get();
-    }
+    // Реалізація КД2 через ReentrantLock CS1
+    public ReentrantLock CS1 = new ReentrantLock();
 
-    public synchronized int CS2() {
-        return d;
-    }
+    // Об'єкт для ідентифікації КД3
+    public final Object CS2 = new Object();
 
     public void doThirdCalculation(int ai, int di, int from, int to) {
         insertPartOfMatrixRowsIntoMatrix( // MUн = (MDн * MC) * di + ai * MRн
