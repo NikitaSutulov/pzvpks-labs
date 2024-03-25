@@ -69,13 +69,13 @@ public class T1 extends Thread {
             // Виведення результату MU
             Data.printMatrix(data.MU);
 
+            // Повідомлення про завершення виконання потоку T1
+            System.out.println("Потік T1 завершив виконання");
+
             // Фіксація часу закінчення виконання програми
             // Обчислення часу роботи програми і його виведення
             double finishTime = (double) System.nanoTime() / 1000000000F;
             System.out.println("T1: час виконання програми склав " + String.format("%.2f с", finishTime - startTime));
-
-            // Повідомлення про завершення виконання потоку T1
-            System.out.println("Потік T1 завершив виконання");
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
