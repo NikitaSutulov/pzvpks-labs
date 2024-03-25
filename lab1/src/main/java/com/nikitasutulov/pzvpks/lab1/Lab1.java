@@ -34,9 +34,9 @@ public class Lab1 {
         double startTime = (double) System.nanoTime() / 1000000000F;
 
         // створення потоків із задаванням отриманих налаштувань у конструктор
-        Thread1 t1 = new Thread1(n, inputOption);
-        Thread2 t2 = new Thread2(n, inputOption);
-        Thread3 t3 = new Thread3(n, inputOption);
+        T1 t1 = new T1(n, inputOption);
+        T2 t2 = new T2(n, inputOption);
+        T3 t3 = new T3(n, inputOption);
 
         // встановлення пріоритетів для потоків
         t1.setPriority(Thread.MIN_PRIORITY);
