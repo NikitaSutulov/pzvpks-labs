@@ -6,3 +6,7 @@
 */*.iws
 */*.iml
 */*.ipr
+
+### .NET ###
+Lab3/bin
+Lab3/obj
